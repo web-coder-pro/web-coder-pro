@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Testlar</title>
+  <style>
+    body { 
+        font-family: sans-serif; 
+        background: #f9f9f9; 
+        text-align: center; 
+    }
+    .test-box { 
+        display: inline-block;
+        background: green;  
+        border-radius: 8px; 
+        box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+        width: 340px;
+        color: red;
+    }
+    .savol { 
+        margin-bottom: 20px; 
+        background-color: red;
+        color: white;
+        width: 100%;
+    }
+    .variant { 
+        display: inline-block; 
+        margin: 5px 0;
+        width: 300px;
+        height: 40px;
+        border: 2px solid red; 
+        border-radius: 15px;
+        background-color: whitesmoke;
+        padding: 25px 1px;
+        font-size: 22px;
+        color: red;
+    }
+    .variant:hover {
+        background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+<div class="test-box" id="testContainer">
+  <h2>Test savollari</h2>
+</div>
+
+<script>
+  const testContainer = document.getElementById("testContainer");
+
+  const selectedTestsJSON = localStorage.getItem('selectedTests');
+
+  if (!selectedTestsJSON) {
+    testContainer.innerHTML = "<p>Hech qanday test topilmadi.</p>";
+  } else {
+    const selectedTests = JSON.parse(selectedTestsJSON);
+
+    selectedTests.forEach((test, index) => {
+      const savolDiv = document.createElement("div");
+      savolDiv.classList.add("savol");
+
+      const savolText = document.createElement("p");
+      savolText.innerHTML = `<strong>${index + 1}. ${test.savol}</strong>`;
+      savolDiv.appendChild(savolText);
+
+      test.variantlar.forEach(variant => {
+        const label = document.createElement("label");
+        label.classList.add("variant");
+        label.innerHTML = `<input type="radio" name="savol${index}" value="${variant}"> ${variant}`;
+        savolDiv.appendChild(label);
+      });
+
+      testContainer.appendChild(savolDiv);
+    });
+  }
+</script>
+
+</body>
+</html>
