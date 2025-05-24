@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Array orqali test</title>
+  <style>
+    body { font-family: sans-serif; background: #f0f0f0; padding: 40px; }
+    .box { background: #fff; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h2 { text-align: center; }
+    button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; }
+    button:hover { background: #218838; }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Test mavzusini tanlang</h2>
+  
+  <label><input type="checkbox" name="mavzu" value="natural"> Natural sonlar</label><br>
+  <label><input type="checkbox" name="mavzu" value="kasr"> Kasrlar</label><br>
+  <label><input type="checkbox" name="mavzu" value="daraja"> Darajalar</label><br><br>
+
+  <label>Nechta test kerak:
+    <select id="testCount">
+      <option value="5">5</option>
+      <option value="10">10</option>
+    </select>
+  </label><br><br>
+
+  <button class="btn-start">Boshlash</button>
+</div>
+
+<script>
+  // Array ichidagi testlar
+  const testData = {
+    natural: [
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" },
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" },
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" },
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" },
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" },
+      { savol: "2 + 2 = ?", variantlar: ["3", "4", "5"], javob: "4" },
+      { savol: "5 * 1 = ?", variantlar: ["5", "6", "10"], javob: "5" }
+    ],
+    kasr: [
+      { savol: "1/2 + 1/2 = ?", variantlar: ["1", "2", "3/2"], javob: "1" },
+      { savol: "3/4 - 1/4 = ?", variantlar: ["2/4", "1/2", "3/2"], javob: "2/4" }
+    ],
+    daraja: [
+      { savol: "2^3 = ?", variantlar: ["6", "8", "9"], javob: "8" },
+      { savol: "3^2 = ?", variantlar: ["6", "9", "12"], javob: "9" }
+    ]
+  };
+
+  document.querySelector('.btn-start').addEventListener('click', () => {
+    const selectedTopics = Array.from(document.querySelectorAll('input[name="mavzu"]:checked')).map(cb => cb.value);
+    const testCount = parseInt(document.getElementById("testCount").value);
+
+    if (selectedTopics.length === 0) {
+      alert("Kamida 1 ta mavzu tanlang!");
+      return;
+    }
+
+    let allTests = [];
+    selectedTopics.forEach(topic => {
+      if (testData[topic]) allTests = allTests.concat(testData[topic]);
+    });
+
+    allTests.sort(() => Math.random() - 0.5);
+    const selectedTests = allTests.slice(0, testCount);
+
+    localStorage.setItem('selectedTests', JSON.stringify(selectedTests));
+    window.location.href = 'tests.html';
+  });
+</script>
+
+</body>
+</html>
