@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>LetsFree - Kirish</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .login-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #444;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #4facfe;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00c6ff;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>LetsFree Saytga Kirish</h2>
+    <form id="loginForm">
+      <label for="password">Parol kiriting:</label>
+      <input type="password" id="password" placeholder="Parol..." required>
+      <button type="submit">Kirish</button>
+      <p class="error" id="error-msg">❌ Noto‘g‘ri parol, qayta urinib ko‘ring.</p>
+    </form>
+  </div>
+
+  <script>
+    const correctPassword = "letsfree123"; // To'g'ri parol shu yerda
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let password = document.getElementById("password").value;
+
+      if (password === correctPassword) {
+        window.location.href = "main.html"; // Agar parol to'g'ri bo'lsa boshqa sahifaga o'tadi
+      } else {
+        document.getElementById("error-msg").style.display = "block";
+      }
+    });
+  </script>
+
+</body>
+</html>
